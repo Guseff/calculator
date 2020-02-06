@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
@@ -49,6 +49,13 @@ module.exports = {
       },
       {
         test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+        }
+      },
+      {
+        test: /\.jsx$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
