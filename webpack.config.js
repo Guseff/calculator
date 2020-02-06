@@ -12,7 +12,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Loan & Lease Calculator',
       filename: './index.html',
       template: './src/index.html',
     }),
@@ -42,6 +41,19 @@ module.exports = {
           'file-loader',
         ],
       },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+        }
+      },
+    ],
+  },
+  resolve: {
+    extensions: [
+      '.js',
+      '.jsx',
     ],
   },
 };
