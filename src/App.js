@@ -1,19 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
-import React, { Component } from 'react';
+import React from 'react';
 
-class App extends Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <div className='jumbotron'>
-        Waaa
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className='jumbotron'>
+      Loan & Lease Calculator
+    </div>
+  );
 }
 
 export default App;
