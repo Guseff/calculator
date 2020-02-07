@@ -1,9 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.css'
 
 import React from 'react'
+import Navbar from './components/Navbar'
+import MainField from './components/Mainfield'
 
-function App() {
-  return <div className="jumbotron">Loan & Lease Calculator</div>
+const App = () => {
+  return (
+    <div className="container rounded border py-3 mt-1">
+      <Navbar />
+      <MainField />
+    </div>
+  )
 }
 
 export default App
