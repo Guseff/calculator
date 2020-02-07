@@ -1,20 +1,35 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Navbar = () => {
+const Navbar = props => {
+  const classes = 'btn btn-outline-secondary rounded-0'
+  const noBorder = ' border-bottom-0'
+  const { isLoan, changeTab } = props
   return (
     <div className="btn-group d-flex">
-      <button className="btn btn-outline-secondary rounded-0" type="button">
+      <button
+        className={classes + (isLoan ? noBorder : '')}
+        type="button"
+        onClick={changeTab}
+        disabled={isLoan}
+      >
         Loan
       </button>
       <button
-        className="btn btn-outline-secondary border-bottom-0 rounded-0"
+        className={classes + (!isLoan ? noBorder : '')}
         type="button"
-        disabled
+        onClick={changeTab}
+        disabled={!isLoan}
       >
         Lease
       </button>
     </div>
   )
+}
+
+Navbar.propTypes = {
+  isLoan: PropTypes.bool.isRequired,
+  changeTab: PropTypes.func.isRequired,
 }
 
 export default Navbar
