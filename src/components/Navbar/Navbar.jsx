@@ -1,14 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
-const Navbar = props => {
+const Navbar = ({ isLoan, changeTab }) => {
   const classes = 'btn btn-outline-secondary rounded-0'
   const noBorder = ' border-bottom-0'
-  const { isLoan, changeTab } = props
+
+  const buttonLoanClassName = classNames(classes, {
+    [noBorder]: isLoan,
+  })
+
+  const buttonLeaseClassName = classNames(classes, {
+    [noBorder]: !isLoan,
+  })
+
   return (
     <div className="btn-group d-flex">
       <button
-        className={classes + (isLoan ? noBorder : '')}
+        className={buttonLoanClassName}
         type="button"
         onClick={changeTab}
         disabled={isLoan}
@@ -16,7 +25,7 @@ const Navbar = props => {
         Loan
       </button>
       <button
-        className={classes + (!isLoan ? noBorder : '')}
+        className={buttonLeaseClassName}
         type="button"
         onClick={changeTab}
         disabled={!isLoan}

@@ -10,10 +10,9 @@ class App extends Component {
     this.state = {
       isLoan: true,
     }
-    this.changeTab = this.changeTab.bind(this)
   }
 
-  changeTab(e) {
+  changeTab = e => {
     e.preventDefault()
     this.setState(prevState => ({ isLoan: !prevState.isLoan }))
   }
