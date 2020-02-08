@@ -11,6 +11,8 @@ class App extends Component {
       isLoan: true,
       vehiclePrice: 15000,
       postCode: 224009,
+      downPayment: 0,
+      tradeIn: 0,
     }
   }
 
@@ -29,8 +31,18 @@ class App extends Component {
     this.setState({ postCode: Number.parseInt(e.target.value, 10) })
   }
 
+  changeDownPaymentHandle = e => {
+    e.preventDefault()
+    this.setState({ downPayment: Number.parseInt(e.target.value, 10) })
+  }
+
+  changeTradeInHandle = e => {
+    e.preventDefault()
+    this.setState({ tradeIn: Number.parseInt(e.target.value, 10) })
+  }
+
   render() {
-    const { isLoan, vehiclePrice, postCode } = this.state
+    const { isLoan, vehiclePrice, postCode, downPayment, tradeIn } = this.state
     return (
       <div className="container rounded border py-3 mt-1">
         <Navbar isLoan={isLoan} changeTab={this.changeTab} />
@@ -40,6 +52,10 @@ class App extends Component {
           changePriceHandle={this.changePriceHandle}
           postCode={postCode}
           changePostCodeHandle={this.changePostCodeHandle}
+          downPayment={downPayment}
+          changeDownPaymentHandle={this.changeDownPaymentHandle}
+          tradeIn={tradeIn}
+          changeTradeInHandle={this.changeTradeInHandle}
         />
       </div>
     )

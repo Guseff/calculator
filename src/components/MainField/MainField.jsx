@@ -10,6 +10,10 @@ const MainField = ({
   changePriceHandle,
   postCode,
   changePostCodeHandle,
+  downPayment,
+  changeDownPaymentHandle,
+  tradeIn,
+  changeTradeInHandle,
 }) => {
   const typeOfCalc = isLoan ? 'Loan' : 'Lease'
   return (
@@ -20,6 +24,10 @@ const MainField = ({
         changePriceHandle={changePriceHandle}
         postCode={postCode}
         changePostCodeHandle={changePostCodeHandle}
+        downPayment={downPayment}
+        changeDownPaymentHandle={changeDownPaymentHandle}
+        tradeIn={tradeIn}
+        changeTradeInHandle={changeTradeInHandle}
       />
     </div>
   )
@@ -31,6 +39,10 @@ MainField.propTypes = {
   changePriceHandle: PropTypes.func.isRequired,
   postCode: PropTypes.number.isRequired,
   changePostCodeHandle: PropTypes.func.isRequired,
+  downPayment: PropTypes.number.isRequired,
+  changeDownPaymentHandle: PropTypes.func.isRequired,
+  tradeIn: PropTypes.number.isRequired,
+  changeTradeInHandle: PropTypes.func.isRequired,
 }
 
 export default MainField
