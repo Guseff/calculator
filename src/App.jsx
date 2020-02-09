@@ -69,7 +69,13 @@ class App extends Component {
     } = this.state
 
     if (loading) {
-      return null
+      return (
+        <div className="d-flex vh-100 justify-content-center">
+          <div className="spinner-border align-self-center" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      )
     }
 
     return (
