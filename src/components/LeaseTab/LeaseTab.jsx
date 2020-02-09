@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import SelectInput from '../SelectInput'
+import ResultField from '../ResultField'
 
 class LeaseTab extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class LeaseTab extends Component {
           variables={creditScores}
           changeVarHandle={this.changeCreditScoreChangeHandle}
         />
+        <ResultField value={780} />
       </div>
     )
   }

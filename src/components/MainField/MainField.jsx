@@ -31,7 +31,11 @@ const MainField = ({
           tradeIn={tradeIn}
           changeTradeInHandle={changeTradeInHandle}
         />
-        {isLoan ? <LoanTab /> : <LeaseTab />}
+        {isLoan ? (
+          <LoanTab paySum={vehiclePrice - tradeIn - downPayment} />
+        ) : (
+          <LeaseTab paySum={vehiclePrice - tradeIn - downPayment} />
+        )}
       </form>
     </div>
   )
