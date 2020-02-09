@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import SelectInput from '../SelectInput'
 import ResultField from '../ResultField'
+import { leaseCalc } from '../../utils/calculate'
 
 class LeaseTab extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      term: 36,
-      creditScore: 750,
-      mileage: 12000,
+      term: +localStorage.getItem('leaseTerm') || 36,
+      creditScore: +localStorage.getItem('creditScore') || 750,
+      mileage: +localStorage.getItem('mileage') || 12000,
     }
   }
 
@@ -33,6 +35,8 @@ class LeaseTab extends Component {
     const creditScores = [600, 650, 700, 750, 800, 850, 900]
     const mileages = [10000, 12000, 15000]
     const { term, creditScore, mileage } = this.state
+    const { paySum } = this.props
+    const calcRes = leaseCalc(paySum, term, creditScore, mileage)
     return (
       <div>
         <SelectInput
@@ -56,10 +60,14 @@ class LeaseTab extends Component {
           variables={creditScores}
           changeVarHandle={this.changeCreditScoreChangeHandle}
         />
-        <ResultField value={780} />
+        <ResultField text="Monthly Payment Lease" value={calcRes} />
       </div>
     )
   }
+}
+
+LeaseTab.propTypes = {
+  paySum: PropTypes.number.isRequired,
 }
 
 export default LeaseTab
