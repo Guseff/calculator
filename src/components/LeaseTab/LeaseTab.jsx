@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { LEASE_TERMS, CREDIT_SCORES, MILEAGES } from '../../constants'
+
 import SelectInput from '../SelectInput'
 import ResultField from '../ResultField'
 import { leaseCalc } from '../../utils/calculate'
@@ -10,19 +12,19 @@ class LeaseTab extends Component {
     super(props)
     this.state = {
       term: +localStorage.getItem('leaseTerm') || 36,
-      creditScore: +localStorage.getItem('creditScore') || 750,
       mileage: +localStorage.getItem('mileage') || 12000,
     }
+  }
+
+  componentWillUnmount() {
+    const { term, mileage } = this.state
+    localStorage.setItem('leaseTerm', term)
+    localStorage.setItem('mileage', mileage)
   }
 
   changeTermHandle = e => {
     e.preventDefault()
     this.setState({ term: Number.parseInt(e.target.value, 10) })
-  }
-
-  changeCreditScoreChangeHandle = e => {
-    e.preventDefault()
-    this.setState({ creditScore: Number.parseInt(e.target.value, 10) })
   }
 
   changeMileageHandle = e => {
@@ -31,11 +33,11 @@ class LeaseTab extends Component {
   }
 
   render() {
-    const termVars = [24, 36, 48]
-    const creditScores = [600, 650, 700, 750, 800, 850, 900]
-    const mileages = [10000, 12000, 15000]
-    const { term, creditScore, mileage } = this.state
-    const { paySum } = this.props
+    const termVars = LEASE_TERMS
+    const creditScores = CREDIT_SCORES
+    const mileages = MILEAGES
+    const { term, mileage } = this.state
+    const { paySum, creditScore, changeCreditScoreHandle } = this.props
     const calcRes = leaseCalc(paySum, term, creditScore, mileage)
     return (
       <div>
@@ -58,7 +60,7 @@ class LeaseTab extends Component {
           prefix="score"
           value={creditScore}
           variables={creditScores}
-          changeVarHandle={this.changeCreditScoreChangeHandle}
+          changeVarHandle={changeCreditScoreHandle}
         />
         <ResultField text="Monthly Payment Lease" value={calcRes} />
       </div>
@@ -68,6 +70,8 @@ class LeaseTab extends Component {
 
 LeaseTab.propTypes = {
   paySum: PropTypes.number.isRequired,
+  creditScore: PropTypes.number.isRequired,
+  changeCreditScoreHandle: PropTypes.func.isRequired,
 }
 
 export default LeaseTab

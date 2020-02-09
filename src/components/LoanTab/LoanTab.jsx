@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { LOAN_TERMS, CREDIT_SCORES } from '../../constants'
+
 import NumInput from '../NumInput'
 import ButtonRow from '../ButtonRow'
 import ResultField from '../ResultField'
@@ -11,15 +13,13 @@ class LoanTab extends Component {
     super(props)
     this.state = {
       term: +localStorage.getItem('loanTerm') || 24,
-      creditScore: +localStorage.getItem('creditScore') || 750,
       apr: +localStorage.getItem('loanApr') || 0,
     }
   }
 
   componentWillUnmount() {
-    const { term, creditScore, apr } = this.state
+    const { term, apr } = this.state
     localStorage.setItem('loanTerm', term)
-    localStorage.setItem('creditScore', creditScore)
     localStorage.setItem('loanApr', apr)
   }
 
@@ -28,21 +28,16 @@ class LoanTab extends Component {
     this.setState({ term: Number.parseInt(e.target.id.slice(5), 10) })
   }
 
-  creditScoreChangeHandle = e => {
-    e.preventDefault()
-    this.setState({ creditScore: Number.parseInt(e.target.id.slice(5), 10) })
-  }
-
   changeAprHandle = e => {
     e.preventDefault()
     this.setState({ apr: Number.parseInt(e.target.value, 10) })
   }
 
   render() {
-    const termVars = [12, 24, 36, 48, 72, 84]
-    const creditScores = [600, 650, 700, 750, 800, 850, 900]
-    const { term, creditScore, apr } = this.state
-    const { paySum } = this.props
+    const termVars = LOAN_TERMS
+    const creditScores = CREDIT_SCORES
+    const { term, apr } = this.state
+    const { paySum, creditScore, changeCreditScoreHandle } = this.props
     const calcRes = loanCalc(paySum, term, creditScore, apr)
     return (
       <div>
@@ -65,7 +60,7 @@ class LoanTab extends Component {
           prefix="scor"
           active={creditScore}
           variables={creditScores}
-          changeVarHandle={this.creditScoreChangeHandle}
+          changeVarHandle={changeCreditScoreHandle}
         />
         <ResultField text="Monthly Payment Loan" value={calcRes} />
       </div>
@@ -75,6 +70,8 @@ class LoanTab extends Component {
 
 LoanTab.propTypes = {
   paySum: PropTypes.number.isRequired,
+  creditScore: PropTypes.number.isRequired,
+  changeCreditScoreHandle: PropTypes.func.isRequired,
 }
 
 export default LoanTab

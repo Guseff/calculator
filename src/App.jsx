@@ -12,10 +12,11 @@ class App extends Component {
     this.state = {
       loading: false,
       isLoan: true,
-      vehiclePrice: 15000,
       postCode: 224009,
+      vehiclePrice: 15000,
       downPayment: 0,
       tradeIn: 0,
+      creditScore: +localStorage.getItem('creditScore') || 750,
     }
   }
 
@@ -31,6 +32,11 @@ class App extends Component {
         })
     }
     fetchIP()
+  }
+
+  componentWillUnmount() {
+    const { creditScore } = this.state
+    localStorage.setItem('creditScore', creditScore)
   }
 
   changeTab = e => {
@@ -58,6 +64,12 @@ class App extends Component {
     this.setState({ tradeIn: Number.parseInt(e.target.value, 10) })
   }
 
+  changeCreditScoreHandle = e => {
+    e.preventDefault()
+    const value = e.target.value ? e.target.value : e.target.id.slice(5)
+    this.setState({ creditScore: Number.parseInt(value, 10) })
+  }
+
   render() {
     const {
       loading,
@@ -66,6 +78,7 @@ class App extends Component {
       postCode,
       downPayment,
       tradeIn,
+      creditScore,
     } = this.state
 
     if (loading) {
@@ -94,6 +107,8 @@ class App extends Component {
           changeDownPaymentHandle={this.changeDownPaymentHandle}
           tradeIn={tradeIn}
           changeTradeInHandle={this.changeTradeInHandle}
+          creditScore={creditScore}
+          changeCreditScoreHandle={this.changeCreditScoreHandle}
         />
       </div>
     )
