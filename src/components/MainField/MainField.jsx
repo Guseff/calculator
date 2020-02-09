@@ -19,18 +19,20 @@ const MainField = ({
   const typeOfCalc = isLoan ? 'Loan' : 'Lease'
   return (
     <div className="container border border-dark border-top-0 pt-3">
-      <h4 className="pb-3">{`Calculate a payment estimate for ${typeOfCalc}`}</h4>
-      <CommonFields
-        vehiclePrice={vehiclePrice}
-        changePriceHandle={changePriceHandle}
-        postCode={postCode}
-        changePostCodeHandle={changePostCodeHandle}
-        downPayment={downPayment}
-        changeDownPaymentHandle={changeDownPaymentHandle}
-        tradeIn={tradeIn}
-        changeTradeInHandle={changeTradeInHandle}
-      />
-      {isLoan ? <LoanTab /> : <LeaseTab />}
+      <h4 className="pb-3">{`Calculate estimate payment for ${typeOfCalc}`}</h4>
+      <form className="form-horizontal">
+        <CommonFields
+          vehiclePrice={vehiclePrice}
+          changePriceHandle={changePriceHandle}
+          postCode={postCode}
+          changePostCodeHandle={changePostCodeHandle}
+          downPayment={downPayment}
+          changeDownPaymentHandle={changeDownPaymentHandle}
+          tradeIn={tradeIn}
+          changeTradeInHandle={changeTradeInHandle}
+        />
+        {isLoan ? <LoanTab /> : <LeaseTab />}
+      </form>
     </div>
   )
 }

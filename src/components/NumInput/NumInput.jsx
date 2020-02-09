@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 const NumInput = ({ variable, changeVarHandle, text, dollar, name }) => {
   return (
     <div className="form-group row">
-      <div className="col-md-7">
+      <div className="col-md-5">
         <div className="">{text}</div>
       </div>
-      <div className="input-group col-md-5">
+      <div className="input-group col-md-7">
         {dollar ? (
           <div className="input-group-prepend">
             <span className="input-group-text">$</span>

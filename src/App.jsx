@@ -71,7 +71,10 @@ class App extends Component {
     if (loading) {
       return (
         <div className="d-flex vh-100 justify-content-center">
-          <div className="spinner-border align-self-center" role="status">
+          <div
+            className="spinner-border text-primary align-self-center"
+            role="status"
+          >
             <span className="sr-only">Loading...</span>
           </div>
         </div>

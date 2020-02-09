@@ -14,7 +14,7 @@ const CommonFields = ({
   changeTradeInHandle,
 }) => {
   return (
-    <form className="form-horizontal">
+    <div>
       <NumInput
         variable={postCode}
         changeVarHandle={changePostCodeHandle}
@@ -43,7 +43,7 @@ const CommonFields = ({
         dollar
         name="trade-in"
       />
-    </form>
+    </div>
   )
 }
 
