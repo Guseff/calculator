@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import CommonFields from '../CommonFields'
-// import LoanTab from '../LoanTab'
+import LoanTab from '../LoanTab/LoanTab'
+import LeaseTab from '../LeaseTab/LeaseTab'
 
 const MainField = ({
   isLoan,
@@ -29,6 +30,7 @@ const MainField = ({
         tradeIn={tradeIn}
         changeTradeInHandle={changeTradeInHandle}
       />
+      {isLoan ? <LoanTab /> : <LeaseTab />}
     </div>
   )
 }

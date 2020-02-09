@@ -4,16 +4,33 @@ import React, { Component } from 'react'
 import Navbar from './components/Navbar'
 import MainField from './components/MainField'
 
+import { IP_TOKEN } from './constants'
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: false,
       isLoan: true,
       vehiclePrice: 15000,
       postCode: 224009,
       downPayment: 0,
       tradeIn: 0,
     }
+  }
+
+  componentDidMount() {
+    const fetchIP = () => {
+      this.setState({ loading: true })
+      const ipUrl = `https://ipinfo.io?lang=en&token=${IP_TOKEN}`
+      fetch(ipUrl)
+        .then(result => result.json())
+        .then(result => {
+          this.setState({ postCode: +result.postal })
+          this.setState({ loading: false })
+        })
+    }
+    fetchIP()
   }
 
   changeTab = e => {
@@ -42,7 +59,19 @@ class App extends Component {
   }
 
   render() {
-    const { isLoan, vehiclePrice, postCode, downPayment, tradeIn } = this.state
+    const {
+      loading,
+      isLoan,
+      vehiclePrice,
+      postCode,
+      downPayment,
+      tradeIn,
+    } = this.state
+
+    if (loading) {
+      return null
+    }
+
     return (
       <div className="container rounded border py-3 mt-1">
         <Navbar isLoan={isLoan} changeTab={this.changeTab} />
