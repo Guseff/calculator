@@ -8,7 +8,7 @@ const ButtonRow = ({ text, prefix, active, variables, changeVarHandle }) => {
       <div className="col-md-5">
         <div className="">{text}</div>
       </div>
-      <div className="btn-group col-md-7" role="group">
+      <div className="btn-group btn-group-sm col-md-7" role="group">
         {variables.map(x => (
           <button
             key={x}

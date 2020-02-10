@@ -9,7 +9,7 @@ const SelectInput = ({ text, prefix, value, variables, changeVarHandle }) => {
       </div>
       <div className="col-md-7">
         <select
-          className="form-control"
+          className="form-control form-control-sm"
           value={value}
           id={prefix}
           onChange={changeVarHandle}

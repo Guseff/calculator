@@ -7,7 +7,7 @@ const NumInput = ({ variable, changeVarHandle, text, dollar, name }) => {
       <div className="col-md-5">
         <div className="">{text}</div>
       </div>
-      <div className="input-group col-md-7">
+      <div className="input-group input-group-sm col-md-7">
         {dollar ? (
           <div className="input-group-prepend">
             <span className="input-group-text">$</span>
