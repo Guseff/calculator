@@ -14,31 +14,27 @@ const DealerInfoField = ({
   loadingData,
   isDataLoaded,
 }) => {
-  if (loadingData) {
-    return (
-      <div className="d-flex justify-content-center container rounded border border-primary py-3 mt-1 h-50">
-        <div
-          className="spinner-border text-primary align-self-center"
-          role="status"
-        >
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="container rounded border border-primary py-3 mt-1">
       <h4>Info Card</h4>
-      {!isDataLoaded ? (
-        <button
-          type="button"
-          className="btn btn-outline-primary btn-sm mt-1"
-          onClick={getDealerInfoCard}
-        >
-          Get Dealer Offer
-        </button>
-      ) : (
+      <button
+        type="button"
+        className="btn btn-outline-primary btn-sm my-3"
+        onClick={getDealerInfoCard}
+      >
+        Get Dealer Offer
+      </button>
+      {loadingData ? (
+        <div className="d-flex justify-content-center container rounded border border-primary py-3 mt-3 h-50">
+          <div
+            className="spinner-border text-primary align-self-center"
+            role="status"
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      ) : null}
+      {isDataLoaded ? (
         <div>
           <div className="font-italic">
             Manufacturers Suggested Retail Price
@@ -70,7 +66,7 @@ const DealerInfoField = ({
               .join(' ')}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }

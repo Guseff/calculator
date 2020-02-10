@@ -64,11 +64,6 @@ class App extends Component {
     this.setState(prevState => ({ isLoan: !prevState.isLoan }))
   }
 
-  // changePriceHandle = e => {
-  //   e.preventDefault()
-  //   this.setState({ vehiclePrice: Number.parseInt(e.target.value, 10) })
-  // }
-
   changePostCodeHandle = e => {
     e.preventDefault()
     this.setState({ postCode: Number.parseInt(e.target.value, 10) })
@@ -128,7 +123,6 @@ class App extends Component {
             <MainField
               isLoan={isLoan}
               msrp={msrp}
-              // changePriceHandle={this.changePriceHandle}
               postCode={postCode}
               changePostCodeHandle={this.changePostCodeHandle}
               downPayment={downPayment}

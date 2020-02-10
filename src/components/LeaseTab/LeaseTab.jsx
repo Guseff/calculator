@@ -62,7 +62,7 @@ class LeaseTab extends Component {
           variables={creditScores}
           changeVarHandle={changeCreditScoreHandle}
         />
-        <ResultField text="Monthly Payment Lease" value={calcRes} />
+        <ResultField text="Estimate Monthly Payment" value={calcRes} />
       </div>
     )
   }

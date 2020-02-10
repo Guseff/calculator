@@ -62,7 +62,7 @@ class LoanTab extends Component {
           variables={creditScores}
           changeVarHandle={changeCreditScoreHandle}
         />
-        <ResultField text="Monthly Payment Loan" value={calcRes} />
+        <ResultField text="Estimate Monthly Payment" value={calcRes} />
       </div>
     )
   }
