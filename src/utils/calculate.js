@@ -18,3 +18,9 @@ export const leaseCalc = (sum, term, score, mileage) =>
   Math.round(
     (sum * getFactorFromScore(score) * (mileage / 10000) * 100) / term
   ) / 100
+
+export const calcTaxes = code =>
+  code
+    .toString(10)
+    .split('')
+    .map(x => x * 11)

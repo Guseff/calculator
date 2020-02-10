@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import MainField from './components/MainField'
 
 import { IP_TOKEN } from './constants'
+import DealerInfoField from './components/DealerInfoField/DealerInfoField'
 
 class App extends Component {
   constructor(props) {
@@ -95,21 +96,28 @@ class App extends Component {
     }
 
     return (
-      <div className="container rounded border py-3 mt-1">
-        <Navbar isLoan={isLoan} changeTab={this.changeTab} />
-        <MainField
-          isLoan={isLoan}
-          vehiclePrice={vehiclePrice}
-          changePriceHandle={this.changePriceHandle}
-          postCode={postCode}
-          changePostCodeHandle={this.changePostCodeHandle}
-          downPayment={downPayment}
-          changeDownPaymentHandle={this.changeDownPaymentHandle}
-          tradeIn={tradeIn}
-          changeTradeInHandle={this.changeTradeInHandle}
-          creditScore={creditScore}
-          changeCreditScoreHandle={this.changeCreditScoreHandle}
-        />
+      <div className="row">
+        <div className="col-xl-8">
+          <div className="container rounded border border-primary py-3 mt-1">
+            <Navbar isLoan={isLoan} changeTab={this.changeTab} />
+            <MainField
+              isLoan={isLoan}
+              vehiclePrice={vehiclePrice}
+              changePriceHandle={this.changePriceHandle}
+              postCode={postCode}
+              changePostCodeHandle={this.changePostCodeHandle}
+              downPayment={downPayment}
+              changeDownPaymentHandle={this.changeDownPaymentHandle}
+              tradeIn={tradeIn}
+              changeTradeInHandle={this.changeTradeInHandle}
+              creditScore={creditScore}
+              changeCreditScoreHandle={this.changeCreditScoreHandle}
+            />
+          </div>
+        </div>
+        <div className="col-xl-4">
+          <DealerInfoField postCode={postCode} />
+        </div>
       </div>
     )
   }
