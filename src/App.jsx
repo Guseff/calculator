@@ -17,9 +17,9 @@ class App extends Component {
       isDataLoaded: false,
       loading: false,
       isLoan: true,
-      postCode: 224009,
-      downPayment: 0,
-      tradeIn: 0,
+      postCode: +localStorage.getItem('postCode') || 0,
+      downPayment: +localStorage.getItem('downPayment') || 0,
+      tradeIn: +localStorage.getItem('tradeIn') || 0,
       creditScore: +localStorage.getItem('creditScore') || 750,
     }
   }
@@ -35,28 +35,28 @@ class App extends Component {
           this.setState({ loading: false })
         })
     }
-    fetchIP()
+    if (this.postCode === 0) {
+      fetchIP()
+    }
   }
 
-  componentWillUnmount() {
-    const { creditScore } = this.state
-    localStorage.setItem('creditScore', creditScore)
-  }
-
-  getDealerInfoCard = () => {
+  getDealerInfoCard = e => {
+    const brand = e.target.id.slice(5)
     this.setState({ loadingData: true })
     const promise = new Promise(res => setTimeout(() => res(data), 3000))
 
-    promise.then(result => {
-      this.setState({ msrp: result.msrp })
-      this.setState({ vehicleName: result.vehicleName })
-      this.setState({ dealerName: result.dealerName })
-      this.setState({ dealerPhone: result.dealerPhone })
-      this.setState({ dealerRating: result.dealerRating })
-      this.setState({ loading: false })
-      this.setState({ loadingData: false })
-      this.setState({ isDataLoaded: true })
-    })
+    promise
+      .then(result => result.find(x => x.dealer === brand))
+      .then(result => {
+        this.setState({ msrp: result.msrp })
+        this.setState({ vehicleName: result.vehicleName })
+        this.setState({ dealerName: result.dealerName })
+        this.setState({ dealerPhone: result.dealerPhone })
+        this.setState({ dealerRating: result.dealerRating })
+        this.setState({ loading: false })
+        this.setState({ loadingData: false })
+        this.setState({ isDataLoaded: true })
+      })
   }
 
   changeTab = e => {
@@ -66,23 +66,30 @@ class App extends Component {
 
   changePostCodeHandle = e => {
     e.preventDefault()
-    this.setState({ postCode: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ postCode: value })
+    localStorage.setItem('postCode', value)
   }
 
   changeDownPaymentHandle = e => {
     e.preventDefault()
-    this.setState({ downPayment: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ downPayment: value })
+    localStorage.setItem('downPayment', value)
   }
 
   changeTradeInHandle = e => {
     e.preventDefault()
-    this.setState({ tradeIn: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ tradeIn: value })
+    localStorage.setItem('tradeIn', value)
   }
 
   changeCreditScoreHandle = e => {
     e.preventDefault()
     const value = e.target.value ? e.target.value : e.target.id.slice(5)
     this.setState({ creditScore: Number.parseInt(value, 10) })
+    localStorage.setItem('creditScore', Number.parseInt(value, 10))
   }
 
   render() {

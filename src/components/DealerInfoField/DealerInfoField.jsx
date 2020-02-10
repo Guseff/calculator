@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import ButtonsDealer from '../ButtonsDealer'
 import { calcTaxes } from '../../utils/calculate'
+import { dealerList } from '../../constants/data'
 
 const DealerInfoField = ({
   postCode,
@@ -17,13 +19,12 @@ const DealerInfoField = ({
   return (
     <div className="container rounded border border-primary py-3 mt-1">
       <h4>Info Card</h4>
-      <button
-        type="button"
-        className="btn btn-outline-primary btn-sm my-3"
-        onClick={getDealerInfoCard}
-      >
-        Get Dealer Offer
-      </button>
+      <ButtonsDealer
+        text="Choose Dealer:"
+        prefix="deal"
+        variables={dealerList}
+        changeVarHandle={getDealerInfoCard}
+      />
       {loadingData ? (
         <div className="d-flex justify-content-center container rounded border border-primary py-3 mt-3 h-50">
           <div

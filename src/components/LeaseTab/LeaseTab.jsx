@@ -16,20 +16,18 @@ class LeaseTab extends Component {
     }
   }
 
-  componentWillUnmount() {
-    const { term, mileage } = this.state
-    localStorage.setItem('leaseTerm', term)
-    localStorage.setItem('mileage', mileage)
-  }
-
   changeTermHandle = e => {
     e.preventDefault()
-    this.setState({ term: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ term: value })
+    localStorage.setItem('leaseTerm', value)
   }
 
   changeMileageHandle = e => {
     e.preventDefault()
-    this.setState({ mileage: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ mileage: value })
+    localStorage.setItem('mileage', value)
   }
 
   render() {

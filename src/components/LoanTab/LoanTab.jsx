@@ -17,20 +17,18 @@ class LoanTab extends Component {
     }
   }
 
-  componentWillUnmount() {
-    const { term, apr } = this.state
-    localStorage.setItem('loanTerm', term)
-    localStorage.setItem('loanApr', apr)
-  }
-
   termChangeHandle = e => {
     e.preventDefault()
-    this.setState({ term: Number.parseInt(e.target.id.slice(5), 10) })
+    const value = Number.parseInt(e.target.id.slice(5), 10)
+    this.setState({ term: value })
+    localStorage.setItem('loanTerm', value)
   }
 
   changeAprHandle = e => {
     e.preventDefault()
-    this.setState({ apr: Number.parseInt(e.target.value, 10) })
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ apr: value })
+    localStorage.setItem('loanApr', value)
   }
 
   render() {
