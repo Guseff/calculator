@@ -3,14 +3,17 @@ import 'bootstrap/dist/css/bootstrap.css'
 import React, { Component } from 'react'
 import Navbar from './components/Navbar'
 import MainField from './components/MainField'
+import DealerInfoField from './components/DealerInfoField/DealerInfoField'
 
 import { IP_TOKEN } from './constants'
-import DealerInfoField from './components/DealerInfoField/DealerInfoField'
+import data from './constants/data'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      loadingData: false,
+      isDataLoaded: false,
       loading: false,
       isLoan: true,
       postCode: 224009,
@@ -38,6 +41,22 @@ class App extends Component {
   componentWillUnmount() {
     const { creditScore } = this.state
     localStorage.setItem('creditScore', creditScore)
+  }
+
+  getDealerInfoCard = () => {
+    this.setState({ loadingData: true })
+    const promise = new Promise(res => setTimeout(() => res(data), 3000))
+
+    promise.then(result => {
+      this.setState({ msrp: result.msrp })
+      this.setState({ vehicleName: result.vehicleName })
+      this.setState({ dealerName: result.dealerName })
+      this.setState({ dealerPhone: result.dealerPhone })
+      this.setState({ dealerRating: result.dealerRating })
+      this.setState({ loading: false })
+      this.setState({ loadingData: false })
+      this.setState({ isDataLoaded: true })
+    })
   }
 
   changeTab = e => {
@@ -80,6 +99,13 @@ class App extends Component {
       downPayment,
       tradeIn,
       creditScore,
+      msrp,
+      vehicleName,
+      dealerName,
+      dealerPhone,
+      dealerRating,
+      loadingData,
+      isDataLoaded,
     } = this.state
 
     if (loading) {
@@ -116,7 +142,17 @@ class App extends Component {
           </div>
         </div>
         <div className="col-xl-4">
-          <DealerInfoField postCode={postCode} />
+          <DealerInfoField
+            postCode={postCode}
+            msrp={msrp}
+            vehicleName={vehicleName}
+            dealerName={dealerName}
+            dealerPhone={dealerPhone}
+            dealerRating={dealerRating}
+            getDealerInfoCard={this.getDealerInfoCard}
+            loadingData={loadingData}
+            isDataLoaded={isDataLoaded}
+          />
         </div>
       </div>
     )
