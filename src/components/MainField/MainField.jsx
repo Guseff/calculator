@@ -7,8 +7,7 @@ import LeaseTab from '../LeaseTab/LeaseTab'
 
 const MainField = ({
   isLoan,
-  vehiclePrice,
-  changePriceHandle,
+  msrp,
   postCode,
   changePostCodeHandle,
   downPayment,
@@ -22,10 +21,9 @@ const MainField = ({
   return (
     <div className="container border border-dark border-top-0 pt-3">
       <h4 className="pb-3">{`Calculate estimate payment for ${typeOfCalc}`}</h4>
+      <h5 className="pb-3 text-primary">{`MSRP $${msrp}-`}</h5>
       <form className="form-horizontal">
         <CommonFields
-          vehiclePrice={vehiclePrice}
-          changePriceHandle={changePriceHandle}
           postCode={postCode}
           changePostCodeHandle={changePostCodeHandle}
           downPayment={downPayment}
@@ -35,13 +33,13 @@ const MainField = ({
         />
         {isLoan ? (
           <LoanTab
-            paySum={vehiclePrice - tradeIn - downPayment}
+            paySum={msrp - tradeIn - downPayment}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
           />
         ) : (
           <LeaseTab
-            paySum={vehiclePrice - tradeIn - downPayment}
+            paySum={msrp - tradeIn - downPayment}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
           />
@@ -53,8 +51,7 @@ const MainField = ({
 
 MainField.propTypes = {
   isLoan: PropTypes.bool.isRequired,
-  vehiclePrice: PropTypes.number.isRequired,
-  changePriceHandle: PropTypes.func.isRequired,
+  msrp: PropTypes.number.isRequired,
   postCode: PropTypes.number.isRequired,
   changePostCodeHandle: PropTypes.func.isRequired,
   downPayment: PropTypes.number.isRequired,

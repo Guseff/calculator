@@ -12,12 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      msrp: 0,
       loadingData: false,
       isDataLoaded: false,
       loading: false,
       isLoan: true,
       postCode: 224009,
-      vehiclePrice: 15000,
       downPayment: 0,
       tradeIn: 0,
       creditScore: +localStorage.getItem('creditScore') || 750,
@@ -64,10 +64,10 @@ class App extends Component {
     this.setState(prevState => ({ isLoan: !prevState.isLoan }))
   }
 
-  changePriceHandle = e => {
-    e.preventDefault()
-    this.setState({ vehiclePrice: Number.parseInt(e.target.value, 10) })
-  }
+  // changePriceHandle = e => {
+  //   e.preventDefault()
+  //   this.setState({ vehiclePrice: Number.parseInt(e.target.value, 10) })
+  // }
 
   changePostCodeHandle = e => {
     e.preventDefault()
@@ -94,12 +94,11 @@ class App extends Component {
     const {
       loading,
       isLoan,
-      vehiclePrice,
+      msrp,
       postCode,
       downPayment,
       tradeIn,
       creditScore,
-      msrp,
       vehicleName,
       dealerName,
       dealerPhone,
@@ -128,8 +127,8 @@ class App extends Component {
             <Navbar isLoan={isLoan} changeTab={this.changeTab} />
             <MainField
               isLoan={isLoan}
-              vehiclePrice={vehiclePrice}
-              changePriceHandle={this.changePriceHandle}
+              msrp={msrp}
+              // changePriceHandle={this.changePriceHandle}
               postCode={postCode}
               changePostCodeHandle={this.changePostCodeHandle}
               downPayment={downPayment}
