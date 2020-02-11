@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import NumInput from '../NumInput'
 import StrInput from '../StrInput'
+// import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const CommonFields = ({
   postCode,
@@ -30,6 +31,7 @@ const CommonFields = ({
         name="down-payment"
         err={downPaymentErr}
       />
+      {/* <ErrorMessage err={downPaymentErr} /> */}
       <NumInput
         variable={tradeIn}
         changeVarHandle={changeTradeInHandle}
@@ -38,6 +40,7 @@ const CommonFields = ({
         name="trade-in"
         err={tradeInErr}
       />
+      {/* <ErrorMessage err={tradeInErr} /> */}
     </div>
   )
 }
