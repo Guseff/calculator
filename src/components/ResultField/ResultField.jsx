@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ResultField = ({ text, value }) => {
+  const result = value > 0 ? value : 0
   return (
     <div className="col-md-12 text-right">
-      <h5>{`${text}: $${value}/month`}</h5>
+      <h5>{`${text}: $${result}/month`}</h5>
     </div>
   )
 }

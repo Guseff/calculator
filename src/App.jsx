@@ -25,6 +25,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const { postCode } = this.state
+    console.log('did start')
     const fetchIP = () => {
       this.setState({ loading: true })
       const ipUrl = `https://ipinfo.io?lang=en&token=${IP_TOKEN}`
@@ -35,7 +37,8 @@ class App extends Component {
           this.setState({ loading: false })
         })
     }
-    if (this.postCode === 0) {
+    if (postCode === 0) {
+      console.log('did fetch')
       fetchIP()
     }
   }

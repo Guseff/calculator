@@ -15,6 +15,8 @@ const CommonFields = ({
     <div>
       <NumInput
         variable={postCode}
+        step="1"
+        max={999999}
         changeVarHandle={changePostCodeHandle}
         text="Post Code:"
         name="post-code"

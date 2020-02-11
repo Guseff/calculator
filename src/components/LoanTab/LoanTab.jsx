@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { LOAN_TERMS, CREDIT_SCORES } from '../../constants'
 
-import NumInput from '../NumInput'
+import StrInput from '../StrInput'
 import ButtonRow from '../ButtonRow'
 import ResultField from '../ResultField'
 import { loanCalc } from '../../utils/calculate'
@@ -13,7 +13,7 @@ class LoanTab extends Component {
     super(props)
     this.state = {
       term: +localStorage.getItem('loanTerm') || 24,
-      apr: +localStorage.getItem('loanApr') || 0,
+      apr: localStorage.getItem('loanApr') || '0',
     }
   }
 
@@ -26,8 +26,24 @@ class LoanTab extends Component {
 
   changeAprHandle = e => {
     e.preventDefault()
-    const value = Number.parseInt(e.target.value, 10)
-    this.setState({ apr: value })
+    const { value } = e.target
+    if (value[0] !== '0' && !Number.parseFloat(value)) {
+      this.setState({ apr: value.slice(1).length ? value.slice(1) : 0 })
+    } else {
+      this.setState({
+        apr:
+          value.slice(-1) === '.' || value.slice(-1) === '0'
+            ? value
+            : Number.parseFloat(value).toString(),
+      })
+      localStorage.setItem('loanApr', value)
+    }
+  }
+
+  adornAprHandle = e => {
+    e.preventDefault()
+    const value = Number.parseFloat(e.target.value)
+    this.setState({ apr: value.toString() })
     localStorage.setItem('loanApr', value)
   }
 
@@ -39,9 +55,10 @@ class LoanTab extends Component {
     const calcRes = loanCalc(paySum, term, creditScore, apr)
     return (
       <div>
-        <NumInput
+        <StrInput
           variable={apr}
           changeVarHandle={this.changeAprHandle}
+          adornAprHandle={this.adornAprHandle}
           text="APR:"
           proc
           name="apr"
