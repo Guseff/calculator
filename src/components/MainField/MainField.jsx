@@ -18,6 +18,7 @@ const MainField = ({
   changeCreditScoreHandle,
   downPaymentErr,
   tradeInErr,
+  sum,
 }) => {
   const typeOfCalc = isLoan ? 'Loan' : 'Lease'
   return (
@@ -37,13 +38,13 @@ const MainField = ({
         />
         {isLoan ? (
           <LoanTab
-            paySum={msrp - tradeIn - downPayment}
+            paySum={sum}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
           />
         ) : (
           <LeaseTab
-            paySum={msrp - tradeIn - downPayment}
+            paySum={sum}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
           />
@@ -66,6 +67,7 @@ MainField.propTypes = {
   changeCreditScoreHandle: PropTypes.func.isRequired,
   tradeInErr: PropTypes.bool.isRequired,
   downPaymentErr: PropTypes.bool.isRequired,
+  sum: PropTypes.number.isRequired,
 }
 
 export default MainField

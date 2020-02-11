@@ -40,23 +40,23 @@ const DealerInfoField = ({
           <div className="font-italic">
             Manufacturers Suggested Retail Price
           </div>
-          <div className="font-weight-bold text-primary mb-3">{`$${msrp}-`}</div>
+          <div className="font-weight-bold text-primary mb-2">{`$${msrp}-`}</div>
 
           <div className="font-italic">Vehicle Model</div>
-          <div className="font-weight-bold text-primary mb-3">
+          <div className="font-weight-bold text-primary mb-2">
             {vehicleName}
           </div>
 
           <div className="font-italic">Dealer</div>
-          <div className="font-weight-bold text-primary mb-3">{dealerName}</div>
+          <div className="font-weight-bold text-primary mb-2">{dealerName}</div>
 
           <div className="font-italic">Dealer Phone</div>
-          <div className="font-weight-bold text-primary mb-3">
+          <div className="font-weight-bold text-primary mb-2">
             {dealerPhone}
           </div>
 
           <div className="font-italic">Dealer Rating</div>
-          <div className="font-weight-bold text-primary mb-3">
+          <div className="font-weight-bold text-primary mb-2">
             {dealerRating}
           </div>
 

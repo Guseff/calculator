@@ -24,6 +24,7 @@ class App extends Component {
       tradeIn: +localStorage.getItem('tradeIn') || 0,
       tradeInErr: false,
       creditScore: +localStorage.getItem('creditScore') || 750,
+      sum: 0,
     }
   }
 
@@ -42,6 +43,9 @@ class App extends Component {
     if (postCode === '0') {
       fetchIP()
     }
+    this.setState(state => {
+      return { sum: state.msrp - state.tradeIn - state.downPayment }
+    })
   }
 
   getDealerInfoCard = e => {
@@ -61,6 +65,9 @@ class App extends Component {
         this.setState({ loading: false })
         this.setState({ loadingData: false })
         this.setState({ isDataLoaded: true })
+        this.setState(state => {
+          return { sum: result.msrp - state.tradeIn - state.downPayment }
+        })
       })
   }
 
@@ -89,6 +96,9 @@ class App extends Component {
     if (!checkLimitsOut(value, msrp)) {
       localStorage.setItem('downPayment', value)
       this.setState({ downPaymentErr: false })
+      this.setState(state => {
+        return { sum: state.msrp - state.tradeIn - value }
+      })
     } else {
       this.setState({ downPaymentErr: true })
     }
@@ -102,6 +112,9 @@ class App extends Component {
     if (!checkLimitsOut(value, msrp)) {
       localStorage.setItem('tradeIn', value)
       this.setState({ tradeInErr: false })
+      this.setState(state => {
+        return { sum: state.msrp - state.downPayment - value }
+      })
     } else {
       this.setState({ tradeInErr: true })
     }
@@ -131,6 +144,7 @@ class App extends Component {
       isDataLoaded,
       downPaymentErr,
       tradeInErr,
+      sum,
     } = this.state
 
     if (loading) {
@@ -164,6 +178,7 @@ class App extends Component {
               changeCreditScoreHandle={this.changeCreditScoreHandle}
               downPaymentErr={downPaymentErr}
               tradeInErr={tradeInErr}
+              sum={sum}
             />
           </div>
         </div>
