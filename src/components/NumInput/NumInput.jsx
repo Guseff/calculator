@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const NumInput = ({ variable, changeVarHandle, text, dollar, name }) => {
+const NumInput = ({ variable, changeVarHandle, text, name, dollar, proc }) => {
   return (
     <div className="form-group row">
       <div className="col-md-5">
@@ -21,16 +21,27 @@ const NumInput = ({ variable, changeVarHandle, text, dollar, name }) => {
           value={variable}
           onChange={changeVarHandle}
         />
+        {proc ? (
+          <div className="input-group-append">
+            <span className="input-group-text">%</span>
+          </div>
+        ) : null}
       </div>
     </div>
   )
+}
+
+NumInput.defaultProps = {
+  dollar: false,
+  proc: false,
 }
 
 NumInput.propTypes = {
   variable: PropTypes.number.isRequired,
   changeVarHandle: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
-  dollar: PropTypes.bool.isRequired,
+  dollar: PropTypes.bool,
+  proc: PropTypes.bool,
   name: PropTypes.string.isRequired,
 }
 

@@ -43,7 +43,7 @@ class LoanTab extends Component {
           variable={apr}
           changeVarHandle={this.changeAprHandle}
           text="APR:"
-          dollar={false}
+          proc
           name="apr"
         />
         <ButtonRow
