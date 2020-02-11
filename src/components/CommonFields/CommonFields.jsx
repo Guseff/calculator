@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import NumInput from '../NumInput'
+import StrInput from '../StrInput'
 
 const CommonFields = ({
   postCode,
@@ -13,10 +14,8 @@ const CommonFields = ({
 }) => {
   return (
     <div>
-      <NumInput
+      <StrInput
         variable={postCode}
-        step="1"
-        max={999999}
         changeVarHandle={changePostCodeHandle}
         text="Post Code:"
         name="post-code"
@@ -40,7 +39,7 @@ const CommonFields = ({
 }
 
 CommonFields.propTypes = {
-  postCode: PropTypes.number.isRequired,
+  postCode: PropTypes.string.isRequired,
   downPayment: PropTypes.number.isRequired,
   tradeIn: PropTypes.number.isRequired,
   changePostCodeHandle: PropTypes.func.isRequired,

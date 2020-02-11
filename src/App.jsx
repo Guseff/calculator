@@ -12,12 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      msrp: 0,
+      msrp: +localStorage.getItem('msrp') || 0,
       loadingData: false,
       isDataLoaded: false,
       loading: false,
       isLoan: true,
-      postCode: +localStorage.getItem('postCode') || 0,
+      postCode: localStorage.getItem('postCode') || '0',
       downPayment: +localStorage.getItem('downPayment') || 0,
       tradeIn: +localStorage.getItem('tradeIn') || 0,
       creditScore: +localStorage.getItem('creditScore') || 750,
@@ -26,19 +26,17 @@ class App extends Component {
 
   componentDidMount() {
     const { postCode } = this.state
-    console.log('did start')
     const fetchIP = () => {
       this.setState({ loading: true })
       const ipUrl = `https://ipinfo.io?lang=en&token=${IP_TOKEN}`
       fetch(ipUrl)
         .then(result => result.json())
         .then(result => {
-          this.setState({ postCode: +result.postal })
+          this.setState({ postCode: result.postal })
           this.setState({ loading: false })
         })
     }
-    if (postCode === 0) {
-      console.log('did fetch')
+    if (postCode === '0') {
       fetchIP()
     }
   }
@@ -52,6 +50,7 @@ class App extends Component {
       .then(result => result.find(x => x.dealer === brand))
       .then(result => {
         this.setState({ msrp: result.msrp })
+        localStorage.setItem('msrp', result.msrp)
         this.setState({ vehicleName: result.vehicleName })
         this.setState({ dealerName: result.dealerName })
         this.setState({ dealerPhone: result.dealerPhone })
@@ -69,9 +68,14 @@ class App extends Component {
 
   changePostCodeHandle = e => {
     e.preventDefault()
-    const value = Number.parseInt(e.target.value, 10)
-    this.setState({ postCode: value })
-    localStorage.setItem('postCode', value)
+    const { value } = e.target
+
+    if (/\d/.test(value.slice(-1))) {
+      this.setState({ postCode: value })
+      localStorage.setItem('postCode', value)
+    } else {
+      this.setState({ postCode: value.length > 1 ? value.slice(0, -1) : '' })
+    }
   }
 
   changeDownPaymentHandle = e => {
@@ -127,8 +131,8 @@ class App extends Component {
 
     return (
       <div className="row">
-        <div className="col-xl-8">
-          <div className="container rounded border border-primary py-3 mt-1">
+        <div className="col-xl-8 h-100">
+          <div className="container rounded border border-primary py-3 mt-1 h-100">
             <Navbar isLoan={isLoan} changeTab={this.changeTab} />
             <MainField
               isLoan={isLoan}
@@ -144,7 +148,7 @@ class App extends Component {
             />
           </div>
         </div>
-        <div className="col-xl-4">
+        <div className="col-xl-4 h-100">
           <DealerInfoField
             postCode={postCode}
             msrp={msrp}

@@ -52,7 +52,7 @@ const MainField = ({
 MainField.propTypes = {
   isLoan: PropTypes.bool.isRequired,
   msrp: PropTypes.number.isRequired,
-  postCode: PropTypes.number.isRequired,
+  postCode: PropTypes.string.isRequired,
   changePostCodeHandle: PropTypes.func.isRequired,
   downPayment: PropTypes.number.isRequired,
   changeDownPaymentHandle: PropTypes.func.isRequired,

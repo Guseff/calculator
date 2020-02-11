@@ -81,7 +81,7 @@ DealerInfoField.defaultProps = {
 }
 
 DealerInfoField.propTypes = {
-  postCode: PropTypes.number.isRequired,
+  postCode: PropTypes.string.isRequired,
   msrp: PropTypes.number,
   vehicleName: PropTypes.string,
   dealerName: PropTypes.string,
