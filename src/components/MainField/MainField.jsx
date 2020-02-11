@@ -16,6 +16,8 @@ const MainField = ({
   changeTradeInHandle,
   creditScore,
   changeCreditScoreHandle,
+  downPaymentErr,
+  tradeInErr,
 }) => {
   const typeOfCalc = isLoan ? 'Loan' : 'Lease'
   return (
@@ -30,6 +32,8 @@ const MainField = ({
           changeDownPaymentHandle={changeDownPaymentHandle}
           tradeIn={tradeIn}
           changeTradeInHandle={changeTradeInHandle}
+          downPaymentErr={downPaymentErr}
+          tradeInErr={tradeInErr}
         />
         {isLoan ? (
           <LoanTab
@@ -60,6 +64,8 @@ MainField.propTypes = {
   changeTradeInHandle: PropTypes.func.isRequired,
   creditScore: PropTypes.number.isRequired,
   changeCreditScoreHandle: PropTypes.func.isRequired,
+  tradeInErr: PropTypes.bool.isRequired,
+  downPaymentErr: PropTypes.bool.isRequired,
 }
 
 export default MainField

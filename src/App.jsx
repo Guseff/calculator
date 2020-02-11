@@ -7,6 +7,7 @@ import DealerInfoField from './components/DealerInfoField/DealerInfoField'
 
 import { IP_TOKEN } from './constants'
 import data from './constants/data'
+import { checkLimitsOut } from './utils/calculate'
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ class App extends Component {
       isLoan: true,
       postCode: localStorage.getItem('postCode') || '0',
       downPayment: +localStorage.getItem('downPayment') || 0,
+      downPaymentErr: false,
       tradeIn: +localStorage.getItem('tradeIn') || 0,
+      tradeInErr: false,
       creditScore: +localStorage.getItem('creditScore') || 750,
     }
   }
@@ -81,15 +84,27 @@ class App extends Component {
   changeDownPaymentHandle = e => {
     e.preventDefault()
     const value = Number.parseInt(e.target.value, 10)
+    const { msrp } = this.state
     this.setState({ downPayment: value })
-    localStorage.setItem('downPayment', value)
+    if (!checkLimitsOut(value, msrp)) {
+      localStorage.setItem('downPayment', value)
+      this.setState({ downPaymentErr: false })
+    } else {
+      this.setState({ downPaymentErr: true })
+    }
   }
 
   changeTradeInHandle = e => {
     e.preventDefault()
     const value = Number.parseInt(e.target.value, 10)
+    const { msrp } = this.state
     this.setState({ tradeIn: value })
-    localStorage.setItem('tradeIn', value)
+    if (!checkLimitsOut(value, msrp)) {
+      localStorage.setItem('tradeIn', value)
+      this.setState({ tradeInErr: false })
+    } else {
+      this.setState({ tradeInErr: true })
+    }
   }
 
   changeCreditScoreHandle = e => {
@@ -114,6 +129,8 @@ class App extends Component {
       dealerRating,
       loadingData,
       isDataLoaded,
+      downPaymentErr,
+      tradeInErr,
     } = this.state
 
     if (loading) {
@@ -145,6 +162,8 @@ class App extends Component {
               changeTradeInHandle={this.changeTradeInHandle}
               creditScore={creditScore}
               changeCreditScoreHandle={this.changeCreditScoreHandle}
+              downPaymentErr={downPaymentErr}
+              tradeInErr={tradeInErr}
             />
           </div>
         </div>

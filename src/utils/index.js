@@ -1,1 +1,1 @@
-export { default } from './calculate'
+export * from './calculate'

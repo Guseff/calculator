@@ -24,3 +24,5 @@ export const calcTaxes = code =>
     .toString(10)
     .split('')
     .map(x => x * 11)
+
+export const checkLimitsOut = (value, high) => value < 0 || value > high / 4

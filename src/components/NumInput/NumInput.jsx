@@ -1,7 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const NumInput = ({ variable, changeVarHandle, text, name, dollar, proc }) => {
+const NumInput = ({
+  variable,
+  changeVarHandle,
+  text,
+  name,
+  dollar,
+  proc,
+  err,
+}) => {
   return (
     <div className="form-group row">
       <div className="col-md-5">
@@ -27,6 +35,15 @@ const NumInput = ({ variable, changeVarHandle, text, name, dollar, proc }) => {
           </div>
         ) : null}
       </div>
+      {err ? (
+        <div className="">
+          <span className="">
+            Wrong value in this field, please enter a correct one.
+            <br />
+            Value mast be smaller than 1/4 MSRP
+          </span>
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -34,6 +51,7 @@ const NumInput = ({ variable, changeVarHandle, text, name, dollar, proc }) => {
 NumInput.defaultProps = {
   dollar: false,
   proc: false,
+  err: false,
 }
 
 NumInput.propTypes = {
@@ -43,6 +61,7 @@ NumInput.propTypes = {
   dollar: PropTypes.bool,
   proc: PropTypes.bool,
   name: PropTypes.string.isRequired,
+  err: PropTypes.bool,
 }
 
 export default NumInput

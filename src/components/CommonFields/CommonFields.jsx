@@ -11,6 +11,8 @@ const CommonFields = ({
   changeDownPaymentHandle,
   tradeIn,
   changeTradeInHandle,
+  downPaymentErr,
+  tradeInErr,
 }) => {
   return (
     <div>
@@ -26,6 +28,7 @@ const CommonFields = ({
         text="Down Payment:"
         dollar
         name="down-payment"
+        err={downPaymentErr}
       />
       <NumInput
         variable={tradeIn}
@@ -33,6 +36,7 @@ const CommonFields = ({
         text="Trade In:"
         dollar
         name="trade-in"
+        err={tradeInErr}
       />
     </div>
   )
@@ -45,6 +49,8 @@ CommonFields.propTypes = {
   changePostCodeHandle: PropTypes.func.isRequired,
   changeDownPaymentHandle: PropTypes.func.isRequired,
   changeTradeInHandle: PropTypes.func.isRequired,
+  tradeInErr: PropTypes.bool.isRequired,
+  downPaymentErr: PropTypes.bool.isRequired,
 }
 
 export default CommonFields
