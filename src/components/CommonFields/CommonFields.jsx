@@ -17,7 +17,6 @@ const CommonFields = ({
         variable={postCode}
         changeVarHandle={changePostCodeHandle}
         text="Post Code:"
-        dollar={false}
         name="post-code"
       />
       <NumInput
