@@ -17,7 +17,7 @@ const initState = () => {
     leaseTerm: loadInteger('leaseTerm', 36),
     mileage: loadInteger('mileage', 12000),
     loanTerm: loadInteger('loanTerm', 24),
-    apr: loadString('loanApr'),
+    apr: loadString('loanApr', '0'),
     dealer: '',
   }
 }
