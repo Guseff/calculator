@@ -1,4 +1,4 @@
-import { loadString, loadFloat, loadInteger } from './utils'
+import { loadString, loadInteger } from './utils'
 
 const initState = () => {
   return {
@@ -17,7 +17,7 @@ const initState = () => {
     leaseTerm: loadInteger('leaseTerm', 36),
     mileage: loadInteger('mileage', 12000),
     loanTerm: loadInteger('loanTerm', 24),
-    apr: loadFloat('loanApr'),
+    apr: loadString('loanApr'),
     dealer: '',
   }
 }
