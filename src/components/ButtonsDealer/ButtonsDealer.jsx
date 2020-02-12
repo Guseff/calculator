@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
-const ButtonsDealer = ({ text, prefix, variables, changeVarHandle }) => {
+const ButtonsDealer = ({
+  text,
+  prefix,
+  variables,
+  changeVarHandle,
+  dealer,
+}) => {
   return (
     <div className="form-group">
       <div className="">{text}</div>
@@ -12,7 +19,10 @@ const ButtonsDealer = ({ text, prefix, variables, changeVarHandle }) => {
             type="button"
             id={`${prefix}-${x}`}
             onClick={changeVarHandle}
-            className="btn btn-outline-primary w-100"
+            className={classNames('btn w-100', {
+              'btn-primary': dealer === x,
+              'btn-outline-primary': dealer !== x,
+            })}
           >
             {x}
           </button>
@@ -22,11 +32,16 @@ const ButtonsDealer = ({ text, prefix, variables, changeVarHandle }) => {
   )
 }
 
+ButtonsDealer.defaultProps = {
+  dealer: '',
+}
+
 ButtonsDealer.propTypes = {
   variables: PropTypes.arrayOf(PropTypes.string).isRequired,
   changeVarHandle: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,
+  dealer: PropTypes.string,
 }
 
 export default ButtonsDealer

@@ -7,7 +7,7 @@ import DealerInfoField from './components/DealerInfoField/DealerInfoField'
 
 import { IP_TOKEN } from './constants'
 import data from './constants/data'
-import { checkLimitsOut, calcPayment } from './utils/calculate'
+import { checkLimitsOut, calcPayment, saveSessionItem } from './utils'
 import initState from './utils/initState'
 
 class App extends Component {
@@ -39,14 +39,14 @@ class App extends Component {
     e.preventDefault()
     const value = Number.parseInt(e.target.id.slice(5), 10)
     this.setState({ loanTerm: value })
-    localStorage.setItem('loanTerm', value)
+    saveSessionItem('loanTerm', value)
   }
 
   adornAprHandle = e => {
     e.preventDefault()
     const value = Number.parseFloat(e.target.value)
     this.setState({ apr: value.toString() })
-    localStorage.setItem('loanApr', value)
+    saveSessionItem('loanApr', value)
   }
 
   changeAprHandle = e => {
@@ -62,7 +62,7 @@ class App extends Component {
             ? value
             : Number.parseFloat(value).toString(),
       })
-      localStorage.setItem('loanApr', value)
+      saveSessionItem('loanApr', value)
     }
   }
 
@@ -70,19 +70,19 @@ class App extends Component {
     e.preventDefault()
     const value = Number.parseInt(e.target.value, 10)
     this.setState({ leaseTerm: value })
-    localStorage.setItem('leaseTerm', value)
+    saveSessionItem('leaseTerm', value)
   }
 
   changeMileageHandle = e => {
     e.preventDefault()
     const value = Number.parseInt(e.target.value, 10)
     this.setState({ mileage: value })
-    localStorage.setItem('mileage', value)
+    saveSessionItem('mileage', value)
   }
 
   getDealerInfoCard = e => {
     const brand = e.target.id.slice(5)
-    this.setState({ loadingData: true })
+    this.setState({ loadingData: true, dealer: brand })
     const promise = new Promise(res => setTimeout(() => res(data), 3000))
 
     promise
@@ -100,6 +100,7 @@ class App extends Component {
             loading: false,
             loadingData: false,
             isDataLoaded: true,
+            dealer: result.dealer,
           }
         })
       })
@@ -116,7 +117,7 @@ class App extends Component {
 
     if (/\d/.test(value.slice(-1))) {
       this.setState({ postCode: value })
-      localStorage.setItem('postCode', value)
+      saveSessionItem('postCode', value)
     } else {
       this.setState({ postCode: value.length > 1 ? value.slice(0, -1) : '' })
     }
@@ -130,7 +131,7 @@ class App extends Component {
 
     this.setState({ downPayment: value })
     if (!checkLimitsOut(value, msrp)) {
-      localStorage.setItem('downPayment', value)
+      saveSessionItem('downPayment', value)
       this.setState({ downPaymentErr: false })
       this.setState(state => {
         return { sum: state.msrp - state.tradeIn - value }
@@ -147,7 +148,7 @@ class App extends Component {
     const { msrp } = this.state
     this.setState({ tradeIn: value })
     if (!checkLimitsOut(value, msrp)) {
-      localStorage.setItem('tradeIn', value)
+      saveSessionItem('tradeIn', value)
       this.setState({ tradeInErr: false })
       this.setState(state => {
         return { sum: state.msrp - state.downPayment - value }
@@ -161,7 +162,7 @@ class App extends Component {
     e.preventDefault()
     const value = e.target.value ? e.target.value : e.target.id.slice(5)
     this.setState({ creditScore: Number.parseInt(value, 10) })
-    localStorage.setItem('creditScore', Number.parseInt(value, 10))
+    saveSessionItem('creditScore', Number.parseInt(value, 10))
   }
 
   render() {
@@ -186,6 +187,7 @@ class App extends Component {
       mileage,
       loanTerm,
       apr,
+      dealer,
     } = this.state
 
     const payment = calcPayment(
@@ -254,6 +256,7 @@ class App extends Component {
             loadingData={loadingData}
             isDataLoaded={isDataLoaded}
             sum={payment}
+            dealer={dealer}
           />
         </div>
       </div>

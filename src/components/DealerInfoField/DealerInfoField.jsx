@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import ButtonsDealer from '../ButtonsDealer'
 import ResultField from '../ResultField/ResultField'
-import { calcTaxes } from '../../utils/calculate'
+import { calcTaxes, showPrice } from '../../utils'
 import { dealerList } from '../../constants/data'
 
 const DealerInfoField = ({
@@ -17,6 +17,7 @@ const DealerInfoField = ({
   loadingData,
   isDataLoaded,
   sum,
+  dealer,
 }) => {
   return (
     <div className="container rounded border border-primary py-3 mt-1">
@@ -26,6 +27,7 @@ const DealerInfoField = ({
         prefix="deal"
         variables={dealerList}
         changeVarHandle={getDealerInfoCard}
+        dealer={dealer}
       />
       {loadingData ? (
         <div className="d-flex justify-content-center container rounded border border-primary py-3 mt-3 h-50">
@@ -37,7 +39,7 @@ const DealerInfoField = ({
           </div>
         </div>
       ) : null}
-      {isDataLoaded ? (
+      {isDataLoaded && !loadingData ? (
         <div>
           <div className="font-italic">
             Manufacturers Suggested Retail Price
@@ -65,8 +67,9 @@ const DealerInfoField = ({
           <div className="font-italic">Taxes</div>
           <div className="font-weight-bold text-primary">
             {calcTaxes(postCode)
-              .map(x => `$${x}-, `)
-              .join(' ')}
+              .map(x => `${showPrice(x)}, `)
+              .join(' ')
+              .slice(0, -2)}
           </div>
         </div>
       ) : null}
@@ -81,6 +84,7 @@ DealerInfoField.defaultProps = {
   dealerName: '',
   dealerPhone: '',
   dealerRating: '',
+  dealer: '',
 }
 
 DealerInfoField.propTypes = {
@@ -94,6 +98,7 @@ DealerInfoField.propTypes = {
   loadingData: PropTypes.bool.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   sum: PropTypes.number.isRequired,
+  dealer: PropTypes.string,
 }
 
 export default DealerInfoField

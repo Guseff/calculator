@@ -1,21 +1,24 @@
+import { loadString, loadFloat, loadInteger } from './utils'
+
 const initState = () => {
   return {
-    msrp: +localStorage.getItem('msrp') || 0,
+    msrp: loadInteger('msrp'),
     loadingData: false,
     isDataLoaded: false,
     loading: false,
     isLoan: true,
-    postCode: localStorage.getItem('postCode') || '0',
-    downPayment: +localStorage.getItem('downPayment') || 0,
+    postCode: loadString('postCode', '0'),
+    downPayment: loadInteger('downPayment'),
     downPaymentErr: false,
-    tradeIn: +localStorage.getItem('tradeIn') || 0,
+    tradeIn: loadInteger('tradeIn'),
     tradeInErr: false,
-    creditScore: +localStorage.getItem('creditScore') || 750,
+    creditScore: loadInteger('creditScore', 750),
     sum: 0,
-    leaseTerm: +localStorage.getItem('leaseTerm') || 36,
-    mileage: +localStorage.getItem('mileage') || 12000,
-    loanTerm: +localStorage.getItem('loanTerm') || 24,
-    apr: localStorage.getItem('loanApr') || '0',
+    leaseTerm: loadInteger('leaseTerm', 36),
+    mileage: loadInteger('mileage', 12000),
+    loanTerm: loadInteger('loanTerm', 24),
+    apr: loadFloat('loanApr'),
+    dealer: '',
   }
 }
 
