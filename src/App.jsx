@@ -69,6 +69,7 @@ class App extends Component {
   changeAprHandle = e => {
     e.preventDefault()
     const { value } = e.target
+
     if (value[0] !== '0' && !Number.parseFloat(value)) {
       this.setState({ apr: value.slice(1).length ? value.slice(1) : 0 })
     } else {
@@ -140,8 +141,10 @@ class App extends Component {
 
   changeDownPaymentHandle = e => {
     e.preventDefault()
-    const value = Number.parseInt(e.target.value, 10)
+    const value =
+      e.target.value === '' ? 0 : Number.parseInt(e.target.value, 10)
     const { msrp } = this.state
+
     this.setState({ downPayment: value })
     if (!checkLimitsOut(value, msrp)) {
       localStorage.setItem('downPayment', value)
@@ -156,7 +159,8 @@ class App extends Component {
 
   changeTradeInHandle = e => {
     e.preventDefault()
-    const value = Number.parseInt(e.target.value, 10)
+    const value =
+      e.target.value === '' ? 0 : Number.parseInt(e.target.value, 10)
     const { msrp } = this.state
     this.setState({ tradeIn: value })
     if (!checkLimitsOut(value, msrp)) {
