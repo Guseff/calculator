@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import CommonFields from '../CommonFields'
-import LoanTab from '../LoanTab/LoanTab'
-import LeaseTab from '../LeaseTab/LeaseTab'
+import LoanTab from '../LoanTab'
+import LeaseTab from '../LeaseTab'
 
 const MainField = ({
   isLoan,
@@ -19,10 +19,19 @@ const MainField = ({
   downPaymentErr,
   tradeInErr,
   sum,
+  leaseTerm,
+  mileage,
+  changeLeaseTermHandle,
+  changeMileageHandle,
+  loanTerm,
+  apr,
+  changeLoanTermHandle,
+  changeAprHandle,
+  adornAprHandle,
 }) => {
   const typeOfCalc = isLoan ? 'Loan' : 'Lease'
   return (
-    <div className="container border border-dark border-top-0 pt-3">
+    <div className="container border border-primary border-top-0 pt-3">
       <h4 className="pb-3">{`Calculate estimate payment for ${typeOfCalc}`}</h4>
       <h5 className="pb-3 text-primary">{`MSRP $${msrp}-`}</h5>
       <form className="form-horizontal">
@@ -41,12 +50,21 @@ const MainField = ({
             paySum={sum}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
+            term={loanTerm}
+            apr={apr}
+            changeTermHandle={changeLoanTermHandle}
+            changeAprHandle={changeAprHandle}
+            adornAprHandle={adornAprHandle}
           />
         ) : (
           <LeaseTab
             paySum={sum}
             creditScore={creditScore}
             changeCreditScoreHandle={changeCreditScoreHandle}
+            term={leaseTerm}
+            mileage={mileage}
+            changeTermHandle={changeLeaseTermHandle}
+            changeMileageHandle={changeMileageHandle}
           />
         )}
       </form>
@@ -68,6 +86,15 @@ MainField.propTypes = {
   tradeInErr: PropTypes.bool.isRequired,
   downPaymentErr: PropTypes.bool.isRequired,
   sum: PropTypes.number.isRequired,
+  leaseTerm: PropTypes.number.isRequired,
+  mileage: PropTypes.number.isRequired,
+  changeLeaseTermHandle: PropTypes.func.isRequired,
+  changeMileageHandle: PropTypes.func.isRequired,
+  loanTerm: PropTypes.number.isRequired,
+  apr: PropTypes.string.isRequired,
+  changeLoanTermHandle: PropTypes.func.isRequired,
+  changeAprHandle: PropTypes.func.isRequired,
+  adornAprHandle: PropTypes.func.isRequired,
 }
 
 export default MainField

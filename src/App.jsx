@@ -7,7 +7,7 @@ import DealerInfoField from './components/DealerInfoField/DealerInfoField'
 
 import { IP_TOKEN } from './constants'
 import data from './constants/data'
-import { checkLimitsOut } from './utils/calculate'
+import { checkLimitsOut, calcPayment } from './utils/calculate'
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +25,10 @@ class App extends Component {
       tradeInErr: false,
       creditScore: +localStorage.getItem('creditScore') || 750,
       sum: 0,
+      leaseTerm: +localStorage.getItem('leaseTerm') || 36,
+      mileage: +localStorage.getItem('mileage') || 12000,
+      loanTerm: +localStorage.getItem('loanTerm') || 24,
+      apr: localStorage.getItem('loanApr') || '0',
     }
   }
 
@@ -48,6 +52,50 @@ class App extends Component {
     })
   }
 
+  changeLoanTermHandle = e => {
+    e.preventDefault()
+    const value = Number.parseInt(e.target.id.slice(5), 10)
+    this.setState({ loanTerm: value })
+    localStorage.setItem('loanTerm', value)
+  }
+
+  adornAprHandle = e => {
+    e.preventDefault()
+    const value = Number.parseFloat(e.target.value)
+    this.setState({ apr: value.toString() })
+    localStorage.setItem('loanApr', value)
+  }
+
+  changeAprHandle = e => {
+    e.preventDefault()
+    const { value } = e.target
+    if (value[0] !== '0' && !Number.parseFloat(value)) {
+      this.setState({ apr: value.slice(1).length ? value.slice(1) : 0 })
+    } else {
+      this.setState({
+        apr:
+          value.slice(-1) === '.' || value.slice(-1) === '0'
+            ? value
+            : Number.parseFloat(value).toString(),
+      })
+      localStorage.setItem('loanApr', value)
+    }
+  }
+
+  changeLeaseTermHandle = e => {
+    e.preventDefault()
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ leaseTerm: value })
+    localStorage.setItem('leaseTerm', value)
+  }
+
+  changeMileageHandle = e => {
+    e.preventDefault()
+    const value = Number.parseInt(e.target.value, 10)
+    this.setState({ mileage: value })
+    localStorage.setItem('mileage', value)
+  }
+
   getDealerInfoCard = e => {
     const brand = e.target.id.slice(5)
     this.setState({ loadingData: true })
@@ -56,15 +104,17 @@ class App extends Component {
     promise
       .then(result => result.find(x => x.dealer === brand))
       .then(result => {
-        this.setState({ msrp: result.msrp })
         localStorage.setItem('msrp', result.msrp)
-        this.setState({ vehicleName: result.vehicleName })
-        this.setState({ dealerName: result.dealerName })
-        this.setState({ dealerPhone: result.dealerPhone })
-        this.setState({ dealerRating: result.dealerRating })
-        this.setState({ loading: false })
-        this.setState({ loadingData: false })
-        this.setState({ isDataLoaded: true })
+        this.setState({
+          msrp: result.msrp,
+          vehicleName: result.vehicleName,
+          dealerName: result.dealerName,
+          dealerPhone: result.dealerPhone,
+          dealerRating: result.dealerRating,
+          loading: false,
+          loadingData: false,
+          isDataLoaded: true,
+        })
         this.setState(state => {
           return { sum: result.msrp - state.tradeIn - state.downPayment }
         })
@@ -145,7 +195,21 @@ class App extends Component {
       downPaymentErr,
       tradeInErr,
       sum,
+      leaseTerm,
+      mileage,
+      loanTerm,
+      apr,
     } = this.state
+
+    const payment = calcPayment(
+      isLoan,
+      sum,
+      loanTerm,
+      leaseTerm,
+      creditScore,
+      mileage,
+      apr
+    )
 
     if (loading) {
       return (
@@ -179,6 +243,15 @@ class App extends Component {
               downPaymentErr={downPaymentErr}
               tradeInErr={tradeInErr}
               sum={sum}
+              leaseTerm={leaseTerm}
+              mileage={mileage}
+              changeLeaseTermHandle={this.changeLeaseTermHandle}
+              changeMileageHandle={this.changeMileageHandle}
+              loanTerm={loanTerm}
+              apr={apr}
+              changeLoanTermHandle={this.changeLoanTermHandle}
+              changeAprHandle={this.changeAprHandle}
+              adornAprHandle={this.adornAprHandle}
             />
           </div>
         </div>
@@ -193,6 +266,7 @@ class App extends Component {
             getDealerInfoCard={this.getDealerInfoCard}
             loadingData={loadingData}
             isDataLoaded={isDataLoaded}
+            sum={payment}
           />
         </div>
       </div>

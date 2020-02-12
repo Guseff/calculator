@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const Navbar = ({ isLoan, changeTab }) => {
-  const classes = 'btn btn-outline-secondary rounded-0'
+  const classes = 'btn btn-outline-primary rounded-0'
   const noBorder = 'border-bottom-0'
 
   const buttonLoanClassName = classNames(classes, {

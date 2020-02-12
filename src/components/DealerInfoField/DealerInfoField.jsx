@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import ButtonsDealer from '../ButtonsDealer'
+import ResultField from '../ResultField/ResultField'
 import { calcTaxes } from '../../utils/calculate'
 import { dealerList } from '../../constants/data'
 
@@ -15,6 +16,7 @@ const DealerInfoField = ({
   getDealerInfoCard,
   loadingData,
   isDataLoaded,
+  sum,
 }) => {
   return (
     <div className="container rounded border border-primary py-3 mt-1">
@@ -68,6 +70,7 @@ const DealerInfoField = ({
           </div>
         </div>
       ) : null}
+      <ResultField text="Estimate Monthly Payment" value={sum} />
     </div>
   )
 }
@@ -90,6 +93,7 @@ DealerInfoField.propTypes = {
   getDealerInfoCard: PropTypes.func.isRequired,
   loadingData: PropTypes.bool.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
+  sum: PropTypes.number.isRequired,
 }
 
 export default DealerInfoField

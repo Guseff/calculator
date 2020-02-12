@@ -11,13 +11,26 @@ const getFactorFromScore = score => {
   return 0.95
 }
 
-export const loanCalc = (sum, term, score, apr) =>
+const loanCalc = (sum, term, score, apr) =>
   Math.round(sum * ((apr / 12) * getFactorFromScore(score) + 100 / term)) / 100
 
-export const leaseCalc = (sum, term, score, mileage) =>
+const leaseCalc = (sum, term, score, mileage) =>
   Math.round(
     (sum * getFactorFromScore(score) * (mileage / 10000) * 100) / term
   ) / 100
+
+export const calcPayment = (
+  isLoan,
+  sum,
+  loanTerm,
+  leaseTerm,
+  score,
+  mileage,
+  apr
+) =>
+  isLoan
+    ? loanCalc(sum, loanTerm, score, apr)
+    : leaseCalc(sum, leaseTerm, score, mileage)
 
 export const calcTaxes = code =>
   code
