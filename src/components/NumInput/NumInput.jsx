@@ -11,6 +11,9 @@ const NumInput = ({
   proc,
   err,
 }) => {
+  const inputClasses = classNames('form-control text-right', {
+    'border-danger': err,
+  })
   return (
     <div>
       <div className="form-group row">
@@ -25,9 +28,7 @@ const NumInput = ({
           ) : null}
           <input
             type="number"
-            className={classNames('form-control text-right', {
-              'border-danger': err,
-            })}
+            className={inputClasses}
             id={`input-${name}`}
             name={`input-${name}`}
             value={variable}

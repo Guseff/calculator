@@ -40,8 +40,7 @@ class App extends Component {
       fetch(ipUrl)
         .then(result => result.json())
         .then(result => {
-          this.setState({ postCode: result.postal })
-          this.setState({ loading: false })
+          this.setState({ postCode: result.postal, loading: false })
         })
     }
     if (postCode === '0') {
@@ -106,18 +105,18 @@ class App extends Component {
       .then(result => result.find(x => x.dealer === brand))
       .then(result => {
         localStorage.setItem('msrp', result.msrp)
-        this.setState({
-          msrp: result.msrp,
-          vehicleName: result.vehicleName,
-          dealerName: result.dealerName,
-          dealerPhone: result.dealerPhone,
-          dealerRating: result.dealerRating,
-          loading: false,
-          loadingData: false,
-          isDataLoaded: true,
-        })
         this.setState(state => {
-          return { sum: result.msrp - state.tradeIn - state.downPayment }
+          return {
+            sum: result.msrp - state.tradeIn - state.downPayment,
+            msrp: result.msrp,
+            vehicleName: result.vehicleName,
+            dealerName: result.dealerName,
+            dealerPhone: result.dealerPhone,
+            dealerRating: result.dealerRating,
+            loading: false,
+            loadingData: false,
+            isDataLoaded: true,
+          }
         })
       })
   }
