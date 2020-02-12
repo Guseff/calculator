@@ -13,6 +13,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: './index.html',
+      favicon: './src/assets/icons/favicon.ico',
       template: './src/index.html',
     }),
   ],
