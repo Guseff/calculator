@@ -22,7 +22,7 @@ const DealerInfoField = ({
     <div className="container rounded border border-primary py-3 mt-1">
       <h4>Info Card</h4>
       <ButtonsDealer
-        text="Choose Dealer:"
+        text="Choose Auto:"
         prefix="deal"
         variables={dealerList}
         changeVarHandle={getDealerInfoCard}
