@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import CommonFields from '../CommonFields'
 import LoanTab from '../LoanTab'
 import LeaseTab from '../LeaseTab'
+import { showPrice } from '../../utils'
 
 const MainField = ({
   isLoan,
@@ -33,7 +34,7 @@ const MainField = ({
   return (
     <div className="container border border-primary border-top-0 pt-3">
       <h4 className="pb-3">{`Calculate estimate payment for ${typeOfCalc}`}</h4>
-      <h5 className="pb-3 text-primary">{`MSRP $${msrp}-`}</h5>
+      <h5 className="pb-3 text-primary">{`MSRP ${showPrice(msrp)}`}</h5>
       <form className="form-horizontal">
         <CommonFields
           postCode={postCode}

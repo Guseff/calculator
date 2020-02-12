@@ -54,7 +54,7 @@ class App extends Component {
     const { value } = e.target
 
     if (value[0] !== '0' && !Number.parseFloat(value)) {
-      this.setState({ apr: value.slice(1).length ? value.slice(1) : 0 })
+      this.setState({ apr: value.slice(1).length ? value.slice(1) : '0' })
     } else {
       this.setState({
         apr:
